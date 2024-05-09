@@ -9,7 +9,7 @@ export default function ProductDetails({ params }: Props) {
   const { productId } = params;
   return (
     <div className="flex flex-col items-center">
-      Producto: {productId}
+      {/* Producto: {productId} */}
       <ProductDetail productId={productId} />
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ProductCard } from "./ProductCard";
+import { SkeletonCard } from "@/components/SkeletonCard";
 
 interface ProductsData {
   id: number;
@@ -40,9 +41,9 @@ export const ProductDetail = ({ productId }: Props) => {
     productos();
   }, [productId]);
   return (
-    <div className="h-screen flex flex-col items-center w-4/5">
+    <div className="h-screen flex flex-col items-center justify-center w-4/5">
       {isLoading ? (
-        <p>Loading...</p>
+        <SkeletonCard />
       ) : product ? (
         <ProductCard {...product} />
       ) : (

@@ -5,7 +5,7 @@ export const Pagos = () => {
   return (
     <div>
       <div className="bg-blue-900 flex justify-center items-center h-12 text-white">
-        <h2 className="font-bold text-2xl">Formas de pago</h2>
+        <h2 className="font-bold text-2xl">Payment Methods</h2>
       </div>
       <div className="py-10 flex justify-evenly">
         <div className="w-36 h-36 relative">
@@ -53,7 +53,7 @@ export const Pagos = () => {
         </div>
         <div className="text-white font-extrabold text-5xl w-3/6 flex justify-center items-center border-l-2">
           <h2 className="text-center">
-            Hasta un 30% de descuento usando estas formas de pago!
+            Up to 30% discount when using these payment methods!
           </h2>
         </div>
       </div>
