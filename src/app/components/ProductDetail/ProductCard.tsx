@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/store/cart-store";
+import { useProductStore } from "@/store/product-store";
 import Image from "next/image";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 interface Props {
   title: string;
@@ -24,6 +27,11 @@ export const ProductCard = ({
   description,
   rating,
 }: Props) => {
+  const [count, setCount] = useState(1);
+  const updateProductStore = useProductStore((state) => state.addProductToCart);
+  const { addItemsToCart, cartItems } = useCartStore();
+  const router = useRouter();
+
   return (
     <div className="flex items-center justify-evenly w-full border-2">
       <div className="flex justify-center items-center p-10">
@@ -41,7 +49,45 @@ export const ProductCard = ({
           <p>Categoria: {category}</p>
           <p>Precio: ${price}</p>
         </div>
-        <Button>Agregar al carrito</Button>
+        <div className="flex justify-around items-center w-full border-t pt-3">
+          <Button
+            onClick={() => {
+              updateProductStore({
+                productId: id,
+                amount: count,
+                price: price,
+                image: image,
+                title: title,
+              });
+              addItemsToCart({
+                productId: id,
+                amount: count,
+                price: price,
+                image: image,
+                title: title,
+              });
+              router.push("/cart");
+            }}
+          >
+            Add to cart
+          </Button>
+          <div className="flex gap-3 justify-between items-center">
+            <p>Amount:</p>
+            <Button
+              onClick={() => {
+                if (count < 2) {
+                  setCount(1);
+                } else {
+                  setCount(count - 1);
+                }
+              }}
+            >
+              -
+            </Button>
+            <p className="font-bold w-4 flex justify-center">{count}</p>
+            <Button onClick={() => setCount(count + 1)}>+</Button>
+          </div>
+        </div>
       </div>
     </div>
   );

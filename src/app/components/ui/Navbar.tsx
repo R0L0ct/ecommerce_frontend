@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { CategoriesMenu } from "../Categories/CategoriesMenu";
@@ -8,10 +8,11 @@ import { useUserStore } from "@/store/user-store";
 import { logout } from "@/api/data.api";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function Navbar({ username }: any) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const userState = useUserStore((state) => state.username);
   const updateUserState = useUserStore((state) => state.updateUsername);
+  const [value, setValue] = useState([]);
 
   let timer: string | number | NodeJS.Timeout | undefined;
 
@@ -36,6 +37,13 @@ export default function Navbar({ username }: any) {
       setIsOpen(false);
     }, 300);
   };
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem("productData");
+    if (storedValue) {
+      setValue(JSON.parse(storedValue));
+    }
+  }, []);
 
   return (
     <div>
@@ -93,6 +101,7 @@ export default function Navbar({ username }: any) {
           )}
         </div>
         <div>
+          <p>{value.length}</p>
           <Link href={"/cart"}>
             <FaShoppingCart className="hover:cursor-pointer hover:text-black" />
           </Link>
