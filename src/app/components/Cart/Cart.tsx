@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { CartCard } from "./CartCard";
 import { GiShoppingCart } from "react-icons/gi";
-import { useAlertStore } from "@/store/alertdialog-store";
 import { useCartStore } from "@/store/cart-store";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface ProductData {
   price: number;
@@ -12,10 +12,7 @@ interface ProductData {
   image: string;
 }
 export const Cart = () => {
-  const confirm = useAlertStore((state) => state.confirm);
   const { cartItems } = useCartStore();
-
-  useEffect(() => {}, []);
 
   return (
     <div className="flex items-center flex-col py-10 w-4/5 gap-5">
@@ -23,9 +20,20 @@ export const Cart = () => {
         <h1 className="font-bold text-2xl">Your Shopping Cart</h1>
         <GiShoppingCart className="text-3xl" />
       </div>
-      {cartItems.length
-        ? cartItems.map((item) => <CartCard {...item} key={item.productId} />)
-        : ""}
+      <div className="w-full flex flex-col items-center">
+        <div className="w-full flex flex-col items-center gap-5">
+          {cartItems.length
+            ? cartItems.map((item) => (
+                <CartCard {...item} key={item.productId} />
+              ))
+            : ""}
+        </div>
+        <div className="p-5">
+          <Link href={"/order"}>
+            <Button>Continue</Button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

@@ -10,12 +10,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useAlertStore } from "@/store/alertdialog-store";
 import { FaTrashAlt } from "react-icons/fa";
 
 export function AlertDialogComponent({ onContinue }: any) {
-  const updateAlertStore = useAlertStore((state) => state.updateAlertState);
-
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
