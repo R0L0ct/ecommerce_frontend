@@ -58,5 +58,70 @@ const refreshToken = async () => {
     console.log(error);
   }
 };
+// User
+const getOneUser = async (username: string) => {
+  try {
+    const response = await axiosInstance.get(`${API}/api/v1/users/${username}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+// Customer
+const createCustomer = async (data: any) => {
+  try {
+    const response = await axiosInstance.post(`${API}/api/v1/customer`, data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export { registerUser, login, logout, validateSession, refreshToken };
+const updateCustomer = async (id: any, data: any) => {
+  try {
+    const response = await axiosInstance.patch(
+      `${API}/api/v1/customer/${id}`,
+      data
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+// Order
+
+const createOrder = async (data: any) => {
+  try {
+    const response = await axiosInstance.post(`${API}/api/v1/order`, data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Order Product
+
+const createOrderProduct = async (data: any) => {
+  try {
+    const response = await axiosInstance.post(
+      `${API}/api/v1/order-product`,
+      data
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  registerUser,
+  login,
+  logout,
+  validateSession,
+  refreshToken,
+  createCustomer,
+  updateCustomer,
+  createOrder,
+  createOrderProduct,
+  getOneUser,
+};

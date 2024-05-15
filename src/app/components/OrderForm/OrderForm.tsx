@@ -1,17 +1,19 @@
 "use client";
-import { loginSchema, orderSchema } from "@/schemas/validation.schema";
+import { orderSchema } from "@/schemas/validation.schema";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { login } from "@/api/data.api";
-import { useUserStore } from "@/store/user-store";
+import { createCustomer, getOneUser } from "@/api/data.api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useOrderStore } from "@/store/order-store";
+import { PaymentForm } from "../PaymentForm/PaymentForm";
+import { getCookie } from "@/app/actions";
 
 type Input = {
   name: string;
-  region: string;
+  state_province: string;
   city: string;
   lastname: string;
   country: string;
@@ -23,26 +25,49 @@ type Input = {
 export function OrderForm() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const { updateOrderState } = useOrderStore();
+  const { isConfirm } = useOrderStore();
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Input>({ resolver: zodResolver(orderSchema) });
   const onSubmit: SubmitHandler<Input> = async (data) => {
     try {
       setIsLoading(true);
       setIsLoading(false);
-      toast("Successful Purchase");
-      console.log(data);
+      const cookie = await getCookie();
+      console.log(cookie.id);
+      const user = await getOneUser(cookie.username);
+      if (user) {
+        if (user.data.email === data.email) {
+          createCustomer({
+            name: data.name,
+            state_province: data.state_province,
+            city: data.city,
+            lastname: data.lastname,
+            country: data.country,
+            email: data.email,
+            address: data.address,
+            phone: data.phone,
+            userId: cookie.id,
+          });
+          toast("Successful Purchase");
+        } else {
+          alert("El email no corresponde a un usuario registrado");
+        }
+      }
+
+      // updateOrderState(true);
+
       //   router.push("/");
     } catch (error) {
       console.log(error);
     }
   };
 
-  return (
+  return !isConfirm ? (
     <div className="min-h-[500px] flex flex-col shadow min-w-[80%] items-center justify-center rounded gap-5 p-5">
       <h3 className="text-2xl font-bold">Order Form</h3>
       <form
@@ -94,13 +119,15 @@ export function OrderForm() {
           </div>
           <div className="flex flex-col gap-5">
             <input
-              placeholder="region..."
-              {...register("region")}
+              placeholder="state_province..."
+              {...register("state_province")}
               className="border rounded p-1"
-              id="region"
+              id="state_province"
             />
             <div className="text-red-600">
-              {errors.region?.message && <span>{errors.region?.message}</span>}
+              {errors.state_province?.message && (
+                <span>{errors.state_province?.message}</span>
+              )}
             </div>
             <input
               placeholder="city"
@@ -137,10 +164,12 @@ export function OrderForm() {
 
         <div className="border-t w-full flex justify-center items-center p-5">
           <Button type="submit" className="hover:cursor-pointer">
-            Purchase
+            Continue
           </Button>
         </div>
       </form>
     </div>
+  ) : (
+    <PaymentForm />
   );
 }
