@@ -7,12 +7,14 @@ import Link from "next/link";
 import { useUserStore } from "@/store/user-store";
 import { logout } from "@/api/data.api";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useCartStore } from "@/store/cart-store";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const userState = useUserStore((state) => state.username);
   const updateUserState = useUserStore((state) => state.updateUsername);
-  const [value, setValue] = useState([]);
+  const { cartItems } = useCartStore();
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   let timer: string | number | NodeJS.Timeout | undefined;
 
@@ -39,11 +41,9 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    const storedValue = localStorage.getItem("productData");
-    if (storedValue) {
-      setValue(JSON.parse(storedValue));
-    }
-  }, []);
+    const total = cartItems.reduce((acc, item) => acc + item.amount, 0);
+    setTotalQuantity(total);
+  }, [cartItems]);
 
   return (
     <div>
@@ -100,8 +100,12 @@ export default function Navbar() {
             </Link>
           )}
         </div>
-        <div>
-          <p>{value.length}</p>
+        <div className="relative">
+          {totalQuantity !== 0 && (
+            <p className="bg-red-950 flex justify-center items-center rounded-[50%] w-[15px] h-[15px] absolute font-bold text-xs top-[-15px] right-[-2px] p-[1px]">
+              {totalQuantity}
+            </p>
+          )}
           <Link href={"/cart"}>
             <FaShoppingCart className="hover:cursor-pointer hover:text-black" />
           </Link>
