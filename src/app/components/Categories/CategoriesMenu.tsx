@@ -1,7 +1,13 @@
 "use client";
+import Link from "next/link";
 import React from "react";
 
-const categorias = ["men's clothing", "jewelery", "electronics"];
+const categorias = [
+  "electronics",
+  "jewelery",
+  "men's clothing",
+  "women's clothing",
+];
 interface CategoriesMenuProps {
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
@@ -20,9 +26,11 @@ export const CategoriesMenu = ({
     >
       {categorias.map((category) => {
         return (
-          <p className="hover:bg-blue-600 p-1 rounded" key={category}>
-            {category}
-          </p>
+          <Link href={`/categories/${category}`} key={category}>
+            <p className="hover:bg-red-900 p-1 rounded" key={category}>
+              {category}
+            </p>
+          </Link>
         );
       })}
     </div>

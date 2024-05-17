@@ -31,10 +31,11 @@ export const Cart = () => {
     const verifyUser = async () => {
       const cookie = await getCookie();
       const user = await getOneUser(cookie.username);
-      if (!user) {
+      if (user?.data === "") {
         setIsAuth(false);
+      } else {
+        setIsAuth(true);
       }
-      setIsAuth(true);
     };
     verifyUser();
   }, []);

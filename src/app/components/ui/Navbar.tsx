@@ -60,7 +60,9 @@ export default function Navbar() {
           )}
         </div>
         <div className="hover:cursor-pointer hover:text-black font-medium">
-          <p>Products</p>
+          <Link href={"/products"}>
+            <p>Products</p>
+          </Link>
         </div>
         <div>
           <p>|</p>

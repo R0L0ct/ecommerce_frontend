@@ -7,7 +7,12 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useOrderStore } from "@/store/order-store";
-import { createOrder, getOneCustomerByEmail, getOneUser } from "@/api/data.api";
+import {
+  createOrder,
+  createOrderProduct,
+  getOneCustomerByEmail,
+  getOneUser,
+} from "@/api/data.api";
 import { useCartStore } from "@/store/cart-store";
 import { getCookie } from "@/app/actions";
 
@@ -61,10 +66,20 @@ export function PaymentForm() {
           (acc: any, item: any) => acc + item.price * item.amount,
           0
         );
-        createOrder({
+        const order = await createOrder({
           total: total,
           customerId: customer?.data.id,
         });
+        console.log(order?.data);
+
+        cartItems.forEach(async (item: any) => {
+          await createOrderProduct({
+            orderId: order?.data.id,
+            productId: item.productId,
+            amount: item.amount,
+          });
+        });
+
         toast("Successful Purchase");
         setIsLoading(false);
       }
