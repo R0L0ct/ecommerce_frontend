@@ -5,6 +5,8 @@ import { useCartStore } from "@/store/cart-store";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { getCookie } from "@/app/actions";
+import { getOneUser } from "@/api/data.api";
 // import { Circles } from "react-loader-spinner";
 
 interface ProductData {
@@ -16,6 +18,7 @@ interface ProductData {
 export const Cart = () => {
   const { cartItems } = useCartStore();
   const [isClient, setIsClient] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -25,6 +28,15 @@ export const Cart = () => {
         useCartStore.setState({ cartItems: JSON.parse(savedCartItems) });
       }
     }
+    const verifyUser = async () => {
+      const cookie = await getCookie();
+      const user = await getOneUser(cookie.username);
+      if (!user) {
+        setIsAuth(false);
+      }
+      setIsAuth(true);
+    };
+    verifyUser();
   }, []);
 
   if (!isClient) {
@@ -50,9 +62,17 @@ export const Cart = () => {
         </div>
         <div className="p-5">
           {typeof window !== "undefined" && cartItems.length ? (
-            <Link href={"/order"}>
-              <Button>Continue</Button>
-            </Link>
+            isAuth ? (
+              <Link href={"/order"}>
+                <Button>Continue</Button>
+              </Link>
+            ) : (
+              <Button
+                onClick={() => alert("You must be authenticated to proceed")}
+              >
+                Continue
+              </Button>
+            )
           ) : (
             <Button disabled>Continue</Button>
           )}

@@ -1,12 +1,15 @@
 "use client";
 import { paymentSchema } from "@/schemas/validation.schema";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useOrderStore } from "@/store/order-store";
+import { createOrder, getOneCustomerByEmail, getOneUser } from "@/api/data.api";
+import { useCartStore } from "@/store/cart-store";
+import { getCookie } from "@/app/actions";
 
 type Input = {
   cardNumber: string;
@@ -20,6 +23,7 @@ export function PaymentForm() {
   const { updateOrderState } = useOrderStore();
   const [numeroTarjeta, setNumeroTarjeta] = useState("");
   const [tipoTarjeta, setTipoTarjeta] = useState("");
+  const { cartItems } = useCartStore();
 
   const handleInputChange = (event: any) => {
     const { value } = event.target;
@@ -47,10 +51,23 @@ export function PaymentForm() {
   const onSubmit: SubmitHandler<Input> = async (data) => {
     try {
       setIsLoading(true);
-      setIsLoading(false);
-      toast("Successful Purchase");
-      console.log(data.cardNumber.replace(/[\s-]/g, ""));
-
+      const cookie = await getCookie();
+      const user = await getOneUser(cookie.username);
+      const customer = await getOneCustomerByEmail(user?.data.email);
+      if (typeof window !== "undefined") {
+        const savedCartItems = localStorage.getItem("cartItems");
+        const cartItems = savedCartItems ? JSON.parse(savedCartItems) : [];
+        const total = cartItems.reduce(
+          (acc: any, item: any) => acc + item.price * item.amount,
+          0
+        );
+        createOrder({
+          total: total,
+          customerId: customer?.data.id,
+        });
+        toast("Successful Purchase");
+        setIsLoading(false);
+      }
       //   router.push("/");
     } catch (error) {
       console.log(error);

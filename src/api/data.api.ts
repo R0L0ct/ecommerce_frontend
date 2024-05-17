@@ -77,6 +77,27 @@ const createCustomer = async (data: any) => {
   }
 };
 
+const getOneCustomer = async (id: any) => {
+  try {
+    const response = await axiosInstance.get(`${API}/api/v1/customer/${id}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getOneCustomerByEmail = async (email: string) => {
+  try {
+    const response = await axiosInstance.post(
+      `${API}/api/v1/customer/customer-email`,
+      { email }
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const updateCustomer = async (id: any, data: any) => {
   try {
     const response = await axiosInstance.patch(
@@ -124,4 +145,6 @@ export {
   createOrder,
   createOrderProduct,
   getOneUser,
+  getOneCustomer,
+  getOneCustomerByEmail,
 };

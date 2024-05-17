@@ -1,9 +1,14 @@
 "use client";
 import { orderSchema } from "@/schemas/validation.schema";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createCustomer, getOneUser } from "@/api/data.api";
+import {
+  createCustomer,
+  getOneCustomer,
+  getOneCustomerByEmail,
+  getOneUser,
+} from "@/api/data.api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -25,8 +30,23 @@ type Input = {
 export function OrderForm() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const { updateOrderState } = useOrderStore();
-  const { isConfirm } = useOrderStore();
+  const { isConfirm, updateOrderState } = useOrderStore();
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    const verifyCustomer = async () => {
+      const cookie = await getCookie();
+      const user = await getOneUser(cookie.username);
+      setUserEmail(user?.data.email);
+      const customer = await getOneCustomerByEmail(user?.data.email);
+      if (customer?.data !== "") {
+        updateOrderState(true);
+      } else {
+        updateOrderState(false);
+      }
+    };
+    verifyCustomer();
+  }, []);
 
   const {
     register,
@@ -55,11 +75,11 @@ export function OrderForm() {
           });
           toast("Successful Purchase");
         } else {
-          alert("El email no corresponde a un usuario registrado");
+          alert("The email does not correspond to a registered user");
         }
       }
 
-      // updateOrderState(true);
+      updateOrderState(true);
 
       //   router.push("/");
     } catch (error) {
@@ -98,6 +118,7 @@ export function OrderForm() {
             </div>
             <input
               placeholder="email..."
+              value={userEmail}
               {...register("email")}
               className="border rounded p-1"
               id="email"
