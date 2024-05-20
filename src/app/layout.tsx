@@ -4,8 +4,8 @@ import "./globals.css";
 import Header from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { Toaster } from "@/components/ui/sonner";
-import { getCookie } from "./actions";
 import { Layout } from "./components/Layout/Layout";
+import { Overlay } from "./components/ui/Overlay";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Layout>
+          <Overlay />
           <Header />
           {children}
           <Footer />

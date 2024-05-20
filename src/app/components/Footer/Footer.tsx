@@ -8,7 +8,7 @@ export const Footer = () => {
   return (
     <div className="min-h-28 py-10 flex justify-around border-t-2">
       <div>
-        <h1 className="text-3xl font-extrabold">THE MARKET</h1>
+        <h1 className="text-3xl font-extrabold sm:text-base">THE MARKET</h1>
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex gap-3 font-bold text-lg">
@@ -18,13 +18,13 @@ export const Footer = () => {
         </div>
         <div className="flex justify-evenly">
           <a href="#">
-            <FaFacebook className="hover:cursor-pointer" />
+            <FaFacebook className="hover:cursor-pointer sm:text-xs" />
           </a>
           <a href="#">
-            <GrInstagram className="hover:cursor-pointer" />
+            <GrInstagram className="hover:cursor-pointer sm:text-xs" />
           </a>
           <a href="#">
-            <BsTwitterX className="hover:cursor-pointer" />
+            <BsTwitterX className="hover:cursor-pointer sm:text-xs" />
           </a>
         </div>
       </div>
