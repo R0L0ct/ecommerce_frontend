@@ -32,8 +32,14 @@ const config = {
 
       sm: { max: "639px" },
       // => @media (max-width: 639px) { ... }
+      xs: { max: "559px" },
+      "2xs": { max: "477px" },
+      "3xs": { max: "380px" },
     },
     extend: {
+      gridTemplateColumns: {
+        "2": "repeat(2, minmax(0, 1fr))",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

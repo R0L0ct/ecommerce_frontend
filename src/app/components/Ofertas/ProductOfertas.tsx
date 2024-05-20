@@ -5,10 +5,18 @@ interface ProductProps {
   image: string;
   title: string;
   category: string;
+  className: string;
 }
-export const ProductOfertas = ({ image, title, category }: ProductProps) => {
+export const ProductOfertas = ({
+  image,
+  title,
+  category,
+  className,
+}: ProductProps) => {
   return (
-    <div className="shadow-lg rounded-md border-2 w-full h-full flex justify-center items-center relative">
+    <div
+      className={`shadow-lg rounded-md border-2 w-full h-full flex justify-center items-center relative ${className}`}
+    >
       <div className="lg:w-[100px] lg:p-1">
         <Image alt={title} src={image} width={200} height={200} />
       </div>

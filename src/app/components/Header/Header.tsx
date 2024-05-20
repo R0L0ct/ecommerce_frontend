@@ -8,14 +8,16 @@ import { BarMenu } from "../ui/BarMenu";
 
 export default function Header() {
   return (
-    <div className="flex justify-between px-5 items-center h-24 bg-red-500">
-      <BarMenu />
-      <Link href={"/"} className="sm:hidden">
-        <Logo />
-      </Link>
-      <Browser />
+    <div className="flex flex-col justify-center  h-24 bg-red-500">
+      <div className="flex justify-between px-5 items-center ">
+        <BarMenu />
+        <Link href={"/"} className="sm:hidden">
+          <Logo />
+        </Link>
+        <Browser />
+        <Cart />
+      </div>
       <Navbar />
-      <Cart />
     </div>
   );
 }

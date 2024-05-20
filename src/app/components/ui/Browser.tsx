@@ -94,12 +94,12 @@ export default function Browser() {
 
   return (
     <div
-      className={`flex w-2/5 h-9 mx-10 rounded-xl bg-white relative ${
+      className={`flex w-full max-w-[50%] h-9 mx-10  bg-white relative 2xs:h-5 ${
         query && "outline outline-2 rounded-none"
       }`}
     >
       <input
-        className="w-full border-none bg-transparent px-4 py-1 text-blue-900 outline-none   "
+        className="w-full border-none bg-transparent px-4 py-1 text-blue-900 outline-none 2xs:text-xs"
         type="search"
         name="search"
         placeholder="Search..."
@@ -109,7 +109,7 @@ export default function Browser() {
         onBlur={() => setIsFocused(false)}
       />
       {query && filteredProducts.length > 0 && (
-        <div className="absolute bg-white top-[38px] left-0 w-[460px] z-10 p-3 rounded-b outline outline-2 max-h-[669px] overflow-auto">
+        <div className="absolute bg-white top-[38px] left-0 right-0 z-10 p-3 rounded-b outline outline-2 max-h-[669px] overflow-auto 2xs:text-xs">
           <ul>
             {filteredProducts.map((items, index) => (
               <li
@@ -135,7 +135,7 @@ export default function Browser() {
           className="m-1 rounded-xl bg-blue-900 px-2 py-0 text-white"
         >
           <svg
-            className="fill-current h-4 w-4"
+            className="fill-current h-4 w-4 2xs:h-2 2xs:w-2"
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
             version="1.1"

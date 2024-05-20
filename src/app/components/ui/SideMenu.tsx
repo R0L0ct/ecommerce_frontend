@@ -13,37 +13,13 @@ import { BiCategory } from "react-icons/bi";
 import { FiShoppingBag } from "react-icons/fi";
 import { useBarMenuStore } from "@/store/barmenu-store";
 import { TiHomeOutline } from "react-icons/ti";
+import { CategoriesSideMenu } from "../Categories/CategoriesSideMenu";
 
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const userState = useUserStore((state) => state.username);
   const updateUserState = useUserStore((state) => state.updateUsername);
-  const { cartItems } = useCartStore();
   const { clicked, toggle } = useBarMenuStore();
-
-  let timer: string | number | NodeJS.Timeout | undefined;
-
-  const handleMouseEnter = () => {
-    clearTimeout(timer);
-    setIsOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    timer = setTimeout(() => {
-      setIsOpen(false);
-    }, 300);
-  };
-
-  const handleMenuMouseEnter = () => {
-    clearTimeout(timer);
-    setIsOpen(true);
-  };
-
-  const handleMenuMouseLeave = () => {
-    timer = setTimeout(() => {
-      setIsOpen(false);
-    }, 300);
-  };
 
   return (
     clicked && (
@@ -108,22 +84,14 @@ export default function SideMenu() {
               <p>Home</p>
             </Link>
           </div>
-          <div className="hover:cursor-pointer hover:text-black font-medium relative">
-            <div className="flex justify-center items-center gap-3">
+          <div className="hover:cursor-pointer hover:text-black font-medium">
+            <div className="flex  items-center gap-3">
               <BiCategory className="flex" />
-              <p
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
+              <p onClick={() => setIsOpen(!isOpen)}>
                 Categories<span className="text-xs">▼</span>
               </p>
             </div>
-            {isOpen && (
-              <CategoriesMenu
-                onMouseEnter={handleMenuMouseEnter}
-                onMouseLeave={handleMenuMouseLeave}
-              />
-            )}
+            {isOpen && <CategoriesSideMenu />}
           </div>
           <div className="hover:cursor-pointer hover:text-black font-medium">
             <Link

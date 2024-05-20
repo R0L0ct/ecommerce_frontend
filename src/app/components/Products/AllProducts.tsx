@@ -35,7 +35,7 @@ export const AllProducts = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-[240px_240px_240px_240px] gap-4 place-items-center p-1">
+    <div className="w-full justify-center grid grid-cols-[240px_240px_240px_240px] gap-4 place-items-center p-1 xl:grid-cols-[200px_200px_200px_200px] lg:grid-cols-[250px_250px] xs:grid-cols-2">
       {!isLoading ? (
         product.map((prod) => <Product key={prod.id} {...prod} />)
       ) : (

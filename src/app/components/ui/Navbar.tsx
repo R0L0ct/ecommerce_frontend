@@ -51,67 +51,71 @@ export default function Navbar() {
 
   return !isSmallScreen ? (
     <div className="">
-      <nav className="flex gap-3 items-center text-white sm:text-black sm:flex-col sm:items-start sm:pl-4">
-        <div className="hover:cursor-pointer hover:text-black font-medium">
-          <Link href={"/"}>
-            <p>Home</p>
-          </Link>
-        </div>
-        <div className="hover:cursor-pointer hover:text-black font-medium relative">
-          <div className="">
-            <p onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-              Categories<span className="text-xs">▼</span>
-            </p>
+      <nav className="text-sm flex w-full justify-between gap-3 items-center text-white px-5">
+        <div className="flex gap-3">
+          <div className="hover:cursor-pointer hover:text-black font-medium">
+            <Link href={"/"}>
+              <p>Home</p>
+            </Link>
           </div>
-          {isOpen && (
-            <CategoriesMenu
-              onMouseEnter={handleMenuMouseEnter}
-              onMouseLeave={handleMenuMouseLeave}
-            />
-          )}
-        </div>
-        <div className="hover:cursor-pointer hover:text-black font-medium">
-          <Link href={"/products"} className="">
-            <p>Products</p>
-          </Link>
-        </div>
-        <div className="">
-          <p>|</p>
-        </div>
-        <div className="hover:cursor-pointer font-medium">
-          {userState ? (
-            <div className="flex items-center justify-center gap-1">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>
-                  {userState.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <p className="hover:text-black">{userState}</p>
+          <div className="hover:cursor-pointer hover:text-black font-medium relative">
+            <div className="">
               <p
-                className="hover:text-black"
-                onClick={() => {
-                  logout();
-                  updateUserState("");
-                }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
               >
-                <MdLogout />
+                Categories<span className="text-xs">▼</span>
               </p>
             </div>
-          ) : (
-            <Link href={"/login"}>
-              <p className="hover:text-black">Login</p>
+            {isOpen && (
+              <CategoriesMenu
+                onMouseEnter={handleMenuMouseEnter}
+                onMouseLeave={handleMenuMouseLeave}
+              />
+            )}
+          </div>
+          <div className="hover:cursor-pointer hover:text-black font-medium">
+            <Link href={"/products"} className="">
+              <p>Products</p>
             </Link>
-          )}
+          </div>
         </div>
-        <div className="hover:cursor-pointer hover:text-black font-medium">
-          {userState ? (
-            ""
-          ) : (
-            <Link href={"/register"}>
-              <p>Register</p>
-            </Link>
-          )}
+        <div className="flex gap-3">
+          <div className="hover:cursor-pointer font-medium">
+            {userState ? (
+              <div className="flex items-center justify-center gap-1">
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>
+                    {userState.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <p className="hover:text-black">{userState}</p>
+                <p
+                  className="hover:text-black"
+                  onClick={() => {
+                    logout();
+                    updateUserState("");
+                  }}
+                >
+                  <MdLogout />
+                </p>
+              </div>
+            ) : (
+              <Link href={"/login"}>
+                <p className="hover:text-black">Login</p>
+              </Link>
+            )}
+          </div>
+          <div className="hover:cursor-pointer hover:text-black font-medium">
+            {userState ? (
+              ""
+            ) : (
+              <Link href={"/register"}>
+                <p>Register</p>
+              </Link>
+            )}
+          </div>
         </div>
         {/* <div className="relative hidden">
           {totalQuantity !== 0 && (

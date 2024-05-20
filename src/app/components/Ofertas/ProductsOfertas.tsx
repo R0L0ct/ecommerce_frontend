@@ -37,9 +37,15 @@ export const ProductsOfertas = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-[240px_240px_240px] gap-4 place-items-center p-1 xl:grid-cols-[200px_200px_200px] lg:grid-cols-[150px_150px_150px]">
+    <div className="w-full grid justify-center grid-cols-[240px_240px_240px] gap-4 place-items-center p-1 xl:grid-cols-[200px_200px_200px] lg:grid-cols-[150px_150px_150px] xs:grid-cols-2 ">
       {!isLoading ? (
-        product.map((prod) => <ProductOfertas key={prod.id} {...prod} />)
+        product.map((prod, index) => (
+          <ProductOfertas
+            key={prod.id}
+            className={index === product.length - 1 ? "xs:col-span-full" : ""}
+            {...prod}
+          />
+        ))
       ) : (
         <h2>No hay productos en oferta</h2>
       )}
