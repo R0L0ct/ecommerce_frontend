@@ -6,7 +6,7 @@ import { PFooter } from "../ui/PFooter";
 
 export const Footer = () => {
   return (
-    <div className="min-h-28 py-10 flex justify-around border-t-2">
+    <div className="min-h-28 py-10 flex justify-around border-t-2 2xs:hidden">
       <div>
         <h1 className="text-3xl font-extrabold sm:text-base">THE MARKET</h1>
       </div>

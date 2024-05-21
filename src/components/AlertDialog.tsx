@@ -16,8 +16,8 @@ export function AlertDialogComponent({ onContinue }: any) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">
-          <FaTrashAlt className="text-xl text-red-600" />
+        <Button variant="outline" className="sm:h-8">
+          <FaTrashAlt className="text-xl text-red-600 sm:text-xs" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

@@ -5,7 +5,7 @@ export const Pagos = () => {
   return (
     <div>
       <div className="bg-blue-900 flex justify-center items-center h-12 text-white">
-        <h2 className="font-bold text-2xl lg:text-xl sm:text-base">
+        <h2 className="font-bold text-2xl lg:text-xl sm:text-base 2xs:text-sm">
           Payment Methods
         </h2>
       </div>

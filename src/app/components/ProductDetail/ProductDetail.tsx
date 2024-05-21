@@ -41,7 +41,7 @@ export const ProductDetail = ({ productId }: Props) => {
     productos();
   }, [productId]);
   return (
-    <div className="h-screen flex flex-col items-center justify-center w-4/5">
+    <div className="min-h-screen flex flex-col items-center justify-center w-4/5 xl:w-full">
       {isLoading ? (
         <SkeletonCard />
       ) : product ? (

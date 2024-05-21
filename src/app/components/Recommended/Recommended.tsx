@@ -5,7 +5,7 @@ export const Recommended = () => {
   return (
     <div className="pb-10">
       <div className="bg-red-500 flex justify-center items-center h-12 text-white">
-        <h2 className="font-bold text-2xl lg:text-xl sm:text-base">
+        <h2 className="font-bold text-2xl lg:text-xl sm:text-base 2xs:text-sm">
           Recommended Products
         </h2>
       </div>

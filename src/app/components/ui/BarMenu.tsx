@@ -20,7 +20,7 @@ export const BarMenu = () => {
 
   return (
     <FaBars
-      className="hidden text-white text-2xl sm:flex sm:z-50"
+      className="hidden text-white text-xl sm:flex sm:z-50"
       onClick={() => toggle()}
     />
   );

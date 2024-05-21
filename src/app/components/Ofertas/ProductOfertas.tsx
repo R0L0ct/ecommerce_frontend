@@ -15,7 +15,7 @@ export const ProductOfertas = ({
 }: ProductProps) => {
   return (
     <div
-      className={`shadow-lg rounded-md border-2 w-full h-full flex justify-center items-center relative ${className}`}
+      className={`shadow-lg rounded-md border-2 w-full h-full 2xs:shadow-none flex justify-center items-center relative ${className}`}
     >
       <div className="lg:w-[100px] lg:p-1">
         <Image alt={title} src={image} width={200} height={200} />

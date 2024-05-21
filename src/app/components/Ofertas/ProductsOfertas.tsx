@@ -37,7 +37,7 @@ export const ProductsOfertas = () => {
   }, []);
 
   return (
-    <div className="w-full grid justify-center grid-cols-[240px_240px_240px] gap-4 place-items-center p-1 xl:grid-cols-[200px_200px_200px] lg:grid-cols-[150px_150px_150px] xs:grid-cols-2 ">
+    <div className="w-full grid justify-center grid-cols-[240px_240px_240px] gap-4 place-items-center p-1 xl:grid-cols-[200px_200px_200px] lg:grid-cols-[150px_150px_150px] xs:grid-cols-2 2xs:gap-0">
       {!isLoading ? (
         product.map((prod, index) => (
           <ProductOfertas

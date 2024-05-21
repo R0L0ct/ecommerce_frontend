@@ -41,7 +41,7 @@ export const Category = ({ category }: Props) => {
     product();
   }, [category]);
   return (
-    <div className="w-full justify-center grid grid-cols-[300px_350px_300px_350px] gap-4 place-items-center p-1 xl:grid-cols-[200px_250px_200px_250px] lg:grid-cols-[250px_250px] xs:grid-cols-2 3xs:gap-0 ">
+    <div className="w-full justify-center grid grid-cols-[300px_350px_300px_350px] gap-4 place-items-center p-1 xl:grid-cols-[200px_250px_200px_250px] lg:grid-cols-[250px_250px] xs:grid-cols-2 3xs:gap-0">
       {!isLoading ? (
         product.map((prod) => <Product key={prod.id} {...prod} />)
       ) : (

@@ -1,6 +1,8 @@
 "use client";
+import { useMediaQuery } from "@react-hook/media-query";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { FaCircleArrowLeft } from "react-icons/fa6";
 
 interface ProductsData {
   id: number;
@@ -23,6 +25,19 @@ export default function Browser() {
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const isSmallScreen = useMediaQuery("(max-width: 477px)");
+
+  useEffect(() => {
+    if (isFocused && isSmallScreen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isFocused, isSmallScreen]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -95,9 +110,23 @@ export default function Browser() {
   return (
     <div
       className={`flex w-full max-w-[50%] h-9 mx-10  bg-white relative 2xs:h-5 ${
-        query && "outline outline-2 rounded-none"
+        query && "outline outline-2 rounded-none "
+      }${
+        isFocused &&
+        "2xs:absolute 2xs:top-0 2xs:right-0 2xs:left-0 2xs:max-w-full 2xs:mx-0 2xs:h-8 2xs:z-50"
       }`}
     >
+      {isFocused && (
+        <button
+          onClick={() => {
+            setIsFocused(false);
+            setQuery("");
+          }}
+          className="px-1"
+        >
+          <FaCircleArrowLeft className="text-red-700" />
+        </button>
+      )}
       <input
         className="w-full border-none bg-transparent px-4 py-1 text-blue-900 outline-none 2xs:text-xs"
         type="search"
@@ -108,8 +137,8 @@ export default function Browser() {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
-      {query && filteredProducts.length > 0 && (
-        <div className="absolute bg-white top-[38px] left-0 right-0 z-10 p-3 rounded-b outline outline-2 max-h-[669px] overflow-auto 2xs:text-xs">
+      {query && filteredProducts.length > 0 && !isSmallScreen && isFocused ? (
+        <div className="absolute bg-white top-[38px] left-0 right-0 z-10 p-3 rounded-b outline outline-2 max-h-[669px] overflow-auto">
           <ul>
             {filteredProducts.map((items, index) => (
               <li
@@ -128,6 +157,29 @@ export default function Browser() {
             ))}
           </ul>
         </div>
+      ) : (
+        isFocused &&
+        isSmallScreen && (
+          <div className="absolute bg-white top-8 left-0 right-0 p-1 outline outline-1 h-screen overflow-auto text-xs z-50">
+            <ul>
+              {filteredProducts.map((items, index) => (
+                <li
+                  className="p-1 border-b"
+                  key={items.id}
+                  style={{
+                    backgroundColor:
+                      index === selectedIndex ? "#d3d3d3" : "transparent",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onClick={() => handleMouseClick(index)}
+                >
+                  {items.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
       )}
       {query && (
         <button

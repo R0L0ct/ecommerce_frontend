@@ -17,7 +17,7 @@ export const Cart = () => {
   return (
     <div className="relative">
       {totalQuantity !== 0 && (
-        <p className="bg-red-950 flex justify-center items-center rounded-[50%] w-[15px] h-[15px] absolute font-bold text-xs top-[-15px] right-[-2px] p-[1px]">
+        <p className="bg-red-950 flex justify-center items-center rounded-[50%] w-[15px] h-[15px] absolute font-bold text-xs top-[-15px] right-[-2px] p-[1px] text-white">
           {totalQuantity}
         </p>
       )}
