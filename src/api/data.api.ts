@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = "http://localhost:3001";
+// const API = "http://localhost:3001";
+const API = "https://ecommerce-backend-z4po.onrender.com";
 
 const axiosInstance = axios.create({
   withCredentials: true,
