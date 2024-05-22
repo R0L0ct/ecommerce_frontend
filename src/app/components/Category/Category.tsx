@@ -30,7 +30,7 @@ export const Category = ({ category }: Props) => {
         const response = await fetch(
           `https://fakestoreapi.com/products/category/${category}`
         );
-        console.log(response);
+        // console.log(response);
         const data = await response.json();
         setProduct(data);
         setIsLoading(false);

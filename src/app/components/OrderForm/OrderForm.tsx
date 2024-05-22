@@ -58,7 +58,7 @@ export function OrderForm() {
       setIsLoading(true);
       setIsLoading(false);
       const cookie = await getCookie();
-      console.log(cookie.id);
+      // console.log(cookie.id);
       const user = await getOneUser(cookie.username);
       if (user) {
         if (user.data.email === data.email) {

@@ -70,7 +70,7 @@ export function PaymentForm() {
           total: total,
           customerId: customer?.data.id,
         });
-        console.log(order?.data);
+        // console.log(order?.data);
 
         cartItems.forEach(async (item: any) => {
           await createOrderProduct({

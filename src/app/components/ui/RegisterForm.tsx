@@ -28,7 +28,7 @@ export function RegisterForm() {
   const onSubmit: SubmitHandler<Input> = async (data) => {
     try {
       setIsLoading(true);
-      console.log(data);
+      // console.log(data);
       await registerUser(data);
       setIsLoading(false);
       toast("Registration Successfully!");
