@@ -28,16 +28,16 @@ export default function SideMenu() {
         <div className="h-36 bg-red-700 flex justify-end flex-col pl-4 mb-3 pb-3 ">
           <div className="hover:cursor-pointer font-medium flex">
             {userState ? (
-              <div className="flex items-center justify-center gap-1">
+              <div className="flex items-center justify-center gap-2">
                 <Avatar>
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>
                     {userState.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                <p className="hover:text-black">{userState}</p>
+                <p className="hover:text-black text-white">{userState}</p>
                 <p
-                  className="hover:text-black"
+                  className="hover:text-black text-white"
                   onClick={() => {
                     logout();
                     updateUserState("");

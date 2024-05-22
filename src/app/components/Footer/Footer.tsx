@@ -8,7 +8,9 @@ export const Footer = () => {
   return (
     <div className="min-h-28 py-10 flex justify-around border-t-2 2xs:hidden">
       <div>
-        <h1 className="text-3xl font-extrabold sm:text-base">THE MARKET</h1>
+        <h1 className="text-3xl font-extrabold sm:text-base lg:text-xl">
+          THE MARKET
+        </h1>
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex gap-3 font-bold text-lg">

@@ -14,6 +14,7 @@ type State = {
 type Action = {
   addItemsToCart: (item: Item) => void;
   removeItemFromCart: (productId: number) => void;
+  removeAllItemsFromCart: () => void;
   updateItemQuantity: (productId: number, amount: number) => void;
 };
 
@@ -39,7 +40,15 @@ export const useCartStore = create<State & Action>()((set) => ({
       return { cartItems: updateCartItems };
     });
   },
-
+  removeAllItemsFromCart: () => {
+    set(() => {
+      const updateCartItems: Item[] = [];
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cartItems", JSON.stringify(updateCartItems));
+      }
+      return { cartItems: updateCartItems };
+    });
+  },
   updateItemQuantity: (productId, amount) => {
     set((state) => {
       const updatedCartItems = state.cartItems.map((item) =>

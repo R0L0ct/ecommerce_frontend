@@ -60,7 +60,7 @@ export const Cart = () => {
           {cartItems.length ? (
             cartItems.map((item) => <CartCard {...item} key={item.productId} />)
           ) : (
-            <div className="w-full h-[500px] flex items-center justify-center">
+            <div className="w-full h-[500px] flex items-center justify-center xs:text-xs">
               <p>There are no items in your cart</p>
             </div>
           )}

@@ -19,9 +19,8 @@ export const BarMenu = () => {
   }, [clicked]);
 
   return (
-    <FaBars
-      className="hidden text-white text-xl sm:flex sm:z-50"
-      onClick={() => toggle()}
-    />
+    <div className="hidden sm:flex sm:z-50">
+      <FaBars className="text-white text-xl" onClick={() => toggle()} />
+    </div>
   );
 };

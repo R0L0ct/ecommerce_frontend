@@ -28,7 +28,7 @@ export function PaymentForm() {
   const { updateOrderState } = useOrderStore();
   const [numeroTarjeta, setNumeroTarjeta] = useState("");
   const [tipoTarjeta, setTipoTarjeta] = useState("");
-  const { cartItems } = useCartStore();
+  const { cartItems, removeAllItemsFromCart } = useCartStore();
 
   const handleInputChange = (event: any) => {
     const { value } = event.target;
@@ -82,43 +82,44 @@ export function PaymentForm() {
 
         toast("Successful Purchase");
         setIsLoading(false);
+        removeAllItemsFromCart();
       }
-      //   router.push("/");
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="min-h-[500px] flex flex-col shadow min-w-[80%] items-center justify-center rounded gap-5 p-5">
-      <h3 className="text-2xl font-bold">Payment Form</h3>
+    <div className="min-h-[500px] flex flex-col shadow min-w-[80%] items-center justify-center rounded gap-5 p-5 sm:w-full xs:px-1">
+      <h3 className="text-2xl font-bold sm:text-base">Payment Form</h3>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center gap-5 w-full"
       >
-        <div className="flex w-full min-h-[80px] justify-center  gap-5">
-          <div className="flex flex-col items-center  gap-1">
-            <div className="flex gap-2 w-full relative">
-              {tipoTarjeta === "Visa" ? (
-                <div className="absolute left-[-60px] bottom-[10px] w-[50px]">
-                  <img src="/pagos/visa.png" alt="visa-logo" />
-                </div>
-              ) : tipoTarjeta === "Mastercard" ? (
-                <div className="w-[50px] absolute left-[-60px] bottom-[5px]">
-                  <img src="/pagos/mastercard.png" alt="mastercard-logo" />
-                </div>
-              ) : (
-                ""
-              )}
-              <div className="flex flex-col gap-1 ">
+        <div className="flex w-full min-h-[80px] justify-center  gap-5 lg:flex-col">
+          <div className="flex flex-col items-center gap-1 lg:items-start">
+            <div className="flex gap-2 relative sm:w-full">
+              <div className="flex flex-col gap-1 sm:text-xs sm:w-full">
                 <label htmlFor="cardNumber">Card Number:</label>
                 <input
                   placeholder="0000 0000 0000 0000"
                   {...register("cardNumber")}
-                  className="border rounded p-1"
+                  className="border rounded p-1 xs:w-full"
                   id="cardNumber"
                   onChange={handleInputChange}
                 />
+                {tipoTarjeta === "Visa" ? (
+                  <div className="absolute right-[5px] bottom-[10px] w-[50px] sm:w-[40px] sm:bottom-[7px]">
+                    <img src="/pagos/visa.png" alt="visa-logo" />
+                  </div>
+                ) : tipoTarjeta === "Mastercard" ? (
+                  <div className="w-[35px] absolute right-[5px] bottom-[3px] sm:w-[25px]">
+                    <img src="/pagos/mastercard.png" alt="mastercard-logo" />
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="text-red-600">
@@ -129,7 +130,7 @@ export function PaymentForm() {
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 sm:text-xs">
             <div className="flex flex-col gap-1">
               <label htmlFor="expirationDate">Expiration Date:</label>
               <input
@@ -148,7 +149,7 @@ export function PaymentForm() {
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 sm:text-xs">
             <div className="flex flex-col gap-1">
               <label htmlFor="pin">Pin:</label>
               <input
@@ -172,12 +173,15 @@ export function PaymentForm() {
         <div className="border-t w-full flex justify-center items-center p-5 gap-5">
           <Button
             type="button"
-            className="hover:cursor-pointer"
+            className="hover:cursor-pointer xs:text-xs xs:h-8"
             onClick={() => updateOrderState(false)}
           >
             Back
           </Button>
-          <Button type="submit" className="hover:cursor-pointer">
+          <Button
+            type="submit"
+            className="hover:cursor-pointer xs:text-xs xs:h-8"
+          >
             Purchase
           </Button>
         </div>

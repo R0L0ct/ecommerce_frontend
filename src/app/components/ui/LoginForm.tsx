@@ -40,25 +40,25 @@ export function LoginForm() {
   };
 
   return (
-    <div className="h-[500px] flex flex-col shadow w-[500px] items-center justify-center rounded gap-5">
-      <h3 className="text-2xl font-bold">Login</h3>
+    <div className="h-[500px] flex flex-col shadow w-[500px] items-center justify-center rounded gap-5 sm:w-full">
+      <h3 className="text-2xl font-bold sm:text-base">Login</h3>
 
       {!isCookie && <p>{isCookieSet}</p>}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col  items-center justify-center gap-3"
+        className="flex flex-col  items-center justify-center gap-3 sm:text-xs xs:w-full xs:p-2"
       >
         <input
           placeholder="your username..."
           {...register("username")}
-          className="border rounded p-1"
+          className="border rounded p-1 xs:w-full xs:rounded-none"
           id="username"
         />
         {errors.username?.message && <span>{errors.username?.message}</span>}
         <input
           placeholder="your password"
           {...register("password")}
-          className="border rounded p-1"
+          className="border rounded p-1 xs:w-full xs:rounded-none"
           id="password"
           type="password"
         />
@@ -66,7 +66,7 @@ export function LoginForm() {
         <input
           value="Submit"
           type="submit"
-          className="hover:cursor-pointer border rounded p-2"
+          className="hover:cursor-pointer border rounded p-2 sm:p-1"
         />
       </form>
     </div>

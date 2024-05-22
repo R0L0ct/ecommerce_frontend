@@ -88,21 +88,21 @@ export function OrderForm() {
   };
 
   return !isConfirm ? (
-    <div className="min-h-[500px] flex flex-col shadow min-w-[80%] items-center justify-center rounded gap-5 p-5">
-      <h3 className="text-2xl font-bold">Order Form</h3>
+    <div className="min-h-[500px] flex flex-col shadow min-w-[80%] items-center justify-center rounded gap-5 p-5 sm:w-full sm:px-1">
+      <h3 className="text-2xl font-bold sm:text-base">Order Form</h3>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center justify-center gap-5 w-full"
       >
-        <div className="flex w-full justify-center  gap-5">
-          <div className="flex flex-col gap-5">
+        <div className="flex w-full justify-center gap-5 2xs:flex-col">
+          <div className="flex flex-col gap-5 sm:text-xs">
             <input
               placeholder="name..."
               {...register("name")}
               className="border rounded p-1"
               id="name"
             />
-            <div className="text-red-600">
+            <div className="text-red-600 2xs:text-center">
               {errors.name?.message && <span>{errors.name?.message}</span>}
             </div>
             <input
@@ -111,7 +111,7 @@ export function OrderForm() {
               className="border rounded p-1"
               id="lastname"
             />
-            <div className="text-red-600">
+            <div className="text-red-600 2xs:text-center">
               {errors.lastname?.message && (
                 <span>{errors.lastname?.message}</span>
               )}
@@ -123,7 +123,7 @@ export function OrderForm() {
               className="border rounded p-1"
               id="email"
             />
-            <div className="text-red-600">
+            <div className="text-red-600 2xs:text-center">
               {errors.email?.message && <span>{errors.email?.message}</span>}
             </div>
             <input
@@ -132,20 +132,20 @@ export function OrderForm() {
               className="border rounded p-1"
               id="country"
             />
-            <div className="text-red-600">
+            <div className="text-red-600 2xs:text-center">
               {errors.country?.message && (
                 <span>{errors.country?.message}</span>
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 sm:text-xs">
             <input
               placeholder="state_province..."
               {...register("state_province")}
               className="border rounded p-1"
               id="state_province"
             />
-            <div className="text-red-600">
+            <div className="text-red-600 2xs:text-center">
               {errors.state_province?.message && (
                 <span>{errors.state_province?.message}</span>
               )}
@@ -156,7 +156,7 @@ export function OrderForm() {
               className="border rounded p-1"
               id="city"
             />
-            <div className="text-red-600">
+            <div className="text-red-600 2xs:text-center">
               {errors.city?.message && <span>{errors.city?.message}</span>}
             </div>
             <input
@@ -165,7 +165,7 @@ export function OrderForm() {
               className="border rounded p-1"
               id="address"
             />
-            <div className="text-red-600">
+            <div className="text-red-600 2xs:text-center">
               {errors.address?.message && (
                 <span>{errors.address?.message}</span>
               )}
@@ -177,14 +177,17 @@ export function OrderForm() {
               id="phone"
               type="number"
             />
-            <div className="text-red-600">
+            <div className="text-red-600 2xs:text-center">
               {errors.phone?.message && <span>{errors.phone?.message}</span>}
             </div>
           </div>
         </div>
 
         <div className="border-t w-full flex justify-center items-center p-5">
-          <Button type="submit" className="hover:cursor-pointer">
+          <Button
+            type="submit"
+            className="hover:cursor-pointer sm:text-xs sm:h-8"
+          >
             Continue
           </Button>
         </div>

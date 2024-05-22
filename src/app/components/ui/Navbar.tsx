@@ -84,15 +84,15 @@ export default function Navbar() {
           <div className="hover:cursor-pointer font-medium">
             {userState ? (
               <div className="flex items-center justify-center gap-1">
-                <Avatar>
+                <Avatar className="w-7 h-7">
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>
                     {userState.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                <p className="hover:text-black">{userState}</p>
+                <p className="hover:text-black text-white">{userState}</p>
                 <p
-                  className="hover:text-black"
+                  className="hover:text-black text-white"
                   onClick={() => {
                     logout();
                     updateUserState("");
