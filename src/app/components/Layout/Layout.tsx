@@ -1,18 +1,21 @@
 "use client";
-import { refreshToken } from "@/api/data.api";
-import { getCookie } from "@/app/actions";
+import { refreshToken, validateSession } from "@/api/data.api";
 import { useUserStore } from "@/store/user-store";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 export const Layout = ({ children }: any) => {
-  const userStore = useUserStore((state) => state.updateUsername);
+  const { updateUsername, updateUserId } = useUserStore();
 
   useEffect(() => {
     const getRefresh = async () => {
       try {
-        await refreshToken();
-        const data = await getCookie();
-        userStore(data.username);
+        const tokendata = await refreshToken();
+
+        const response = await validateSession({
+          accessToken: tokendata?.data.token,
+        });
+        updateUsername(response.username);
+        updateUserId(response.id);
       } catch (err) {
         console.log("Something goes wrong");
       }

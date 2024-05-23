@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useOrderStore } from "@/store/order-store";
 import { PaymentForm } from "../PaymentForm/PaymentForm";
-import { getCookie } from "@/app/actions";
+import { useUserStore } from "@/store/user-store";
 
 type Input = {
   name: string;
@@ -32,11 +32,11 @@ export function OrderForm() {
   const router = useRouter();
   const { isConfirm, updateOrderState } = useOrderStore();
   const [userEmail, setUserEmail] = useState("");
+  const { username, id } = useUserStore();
 
   useEffect(() => {
     const verifyCustomer = async () => {
-      const cookie = await getCookie();
-      const user = await getOneUser(cookie.username);
+      const user = await getOneUser(username);
       setUserEmail(user?.data.email);
       const customer = await getOneCustomerByEmail(user?.data.email);
       if (customer?.data !== "") {
@@ -46,7 +46,7 @@ export function OrderForm() {
       }
     };
     verifyCustomer();
-  }, []);
+  }, [username]);
 
   const {
     register,
@@ -56,10 +56,7 @@ export function OrderForm() {
   const onSubmit: SubmitHandler<Input> = async (data) => {
     try {
       setIsLoading(true);
-      setIsLoading(false);
-      const cookie = await getCookie();
-      // console.log(cookie.id);
-      const user = await getOneUser(cookie.username);
+      const user = await getOneUser(username);
       if (user) {
         if (user.data.email === data.email) {
           createCustomer({
@@ -71,7 +68,7 @@ export function OrderForm() {
             email: data.email,
             address: data.address,
             phone: data.phone,
-            userId: cookie.id,
+            userId: id,
           });
           toast("Successful Purchase");
         } else {
@@ -81,6 +78,7 @@ export function OrderForm() {
 
       updateOrderState(true);
 
+      setIsLoading(false);
       //   router.push("/");
     } catch (error) {
       console.log(error);

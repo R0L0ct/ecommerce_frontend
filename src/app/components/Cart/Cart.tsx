@@ -5,9 +5,9 @@ import { useCartStore } from "@/store/cart-store";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getCookie } from "@/app/actions";
 import { getOneUser } from "@/api/data.api";
 import { useMediaQuery } from "@react-hook/media-query";
+import { useUserStore } from "@/store/user-store";
 // import { Circles } from "react-loader-spinner";
 
 interface ProductData {
@@ -21,6 +21,7 @@ export const Cart = () => {
   const [isClient, setIsClient] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width: 477px)");
+  const { username } = useUserStore();
 
   useEffect(() => {
     setIsClient(true);
@@ -31,8 +32,7 @@ export const Cart = () => {
       }
     }
     const verifyUser = async () => {
-      const cookie = await getCookie();
-      const user = await getOneUser(cookie.username);
+      const user = await getOneUser(username);
       if (user?.data === "") {
         setIsAuth(false);
       } else {
@@ -40,7 +40,7 @@ export const Cart = () => {
       }
     };
     verifyUser();
-  }, []);
+  }, [username]);
 
   if (!isClient) {
     // Render a loading state or null while waiting for client-side rendering

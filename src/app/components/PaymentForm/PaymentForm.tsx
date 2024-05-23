@@ -14,7 +14,7 @@ import {
   getOneUser,
 } from "@/api/data.api";
 import { useCartStore } from "@/store/cart-store";
-import { getCookie } from "@/app/actions";
+import { useUserStore } from "@/store/user-store";
 
 type Input = {
   cardNumber: string;
@@ -29,6 +29,7 @@ export function PaymentForm() {
   const [numeroTarjeta, setNumeroTarjeta] = useState("");
   const [tipoTarjeta, setTipoTarjeta] = useState("");
   const { cartItems, removeAllItemsFromCart } = useCartStore();
+  const { username } = useUserStore();
 
   const handleInputChange = (event: any) => {
     const { value } = event.target;
@@ -56,8 +57,7 @@ export function PaymentForm() {
   const onSubmit: SubmitHandler<Input> = async (data) => {
     try {
       setIsLoading(true);
-      const cookie = await getCookie();
-      const user = await getOneUser(cookie.username);
+      const user = await getOneUser(username);
       const customer = await getOneCustomerByEmail(user?.data.email);
       if (typeof window !== "undefined") {
         const savedCartItems = localStorage.getItem("cartItems");

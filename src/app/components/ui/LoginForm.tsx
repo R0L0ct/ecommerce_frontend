@@ -7,7 +7,6 @@ import { login } from "@/api/data.api";
 import { useUserStore } from "@/store/user-store";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { getCookie } from "@/app/actions";
 
 type Input = {
   username: string;
@@ -15,12 +14,9 @@ type Input = {
 };
 
 export function LoginForm() {
-  const [userData, setUserData] = useState<{ username: string } | undefined>();
   const [isLoading, setIsLoading] = useState(true);
-  const [isCookie, setIsCookie] = useState(false);
-  const [isCookieSet, setIsCookieSet] = useState<string | undefined>("");
-  const setUserState = useUserStore((state) => state.updateUsername);
   const router = useRouter();
+  const { updateUserId, updateUsername } = useUserStore();
 
   const {
     register,
@@ -31,11 +27,10 @@ export function LoginForm() {
     try {
       setIsLoading(true);
       const userdata = await login(data);
-      setIsLoading(false);
-      setUserState(userdata.data.username);
+      updateUsername(userdata.data.username);
+      updateUserId(userdata.data.id);
       toast("Authentication Successfully!");
-      const datoss = await getCookie();
-      console.log(datoss);
+      setIsLoading(false);
       router.push("/");
     } catch (error) {
       console.log(error);
@@ -45,8 +40,6 @@ export function LoginForm() {
   return (
     <div className="h-[500px] flex flex-col shadow w-[500px] items-center justify-center rounded gap-5 sm:w-full">
       <h3 className="text-2xl font-bold sm:text-base">Login</h3>
-
-      {!isCookie && <p>{isCookieSet}</p>}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col  items-center justify-center gap-3 sm:text-xs xs:w-full xs:p-2"
