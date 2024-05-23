@@ -79,7 +79,7 @@ export default function Browser() {
             // alert(`Seleccionaste: ${filteredProducts[selectedIndex].title}`);
             router.push(`/products/${filteredProducts[selectedIndex].id}`);
             setQuery("");
-            setFilteredProducts([]);
+            // setFilteredProducts([]);
           }
         }
       }
@@ -102,7 +102,6 @@ export default function Browser() {
   };
 
   const handleMouseClick = (index: number) => {
-    // alert(`Seleccionaste: ${filteredProducts[index].title}`);
     router.push(`/products/${filteredProducts[index].id}`);
     setFilteredProducts([]);
   };
