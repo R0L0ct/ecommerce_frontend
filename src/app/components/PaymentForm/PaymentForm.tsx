@@ -25,7 +25,7 @@ type Input = {
 export function PaymentForm() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const { updateOrderState } = useOrderStore();
+  const { updateOrderState, isConfirm } = useOrderStore();
   const [numeroTarjeta, setNumeroTarjeta] = useState("");
   const [tipoTarjeta, setTipoTarjeta] = useState("");
   const { cartItems, removeAllItemsFromCart } = useCartStore();
@@ -171,13 +171,26 @@ export function PaymentForm() {
         </div>
 
         <div className="border-t w-full flex justify-center items-center p-5 gap-5">
-          <Button
-            type="button"
-            className="hover:cursor-pointer xs:text-xs xs:h-8"
-            onClick={() => updateOrderState(false)}
-          >
-            Back
-          </Button>
+          {/* To ensure that the order form cannot be accessed once it has been completed. 
+          But the idea is to create a user menu to modify the data and apply the update logic to the form once we click 'Back' */}
+
+          {!isConfirm ? (
+            <Button
+              type="button"
+              className="hover:cursor-pointer xs:text-xs xs:h-8"
+              onClick={() => updateOrderState(false)}
+            >
+              Back
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              className="hover:cursor-pointer xs:text-xs xs:h-8"
+              onClick={() => router.push("/")}
+            >
+              Exit
+            </Button>
+          )}
           <Button
             type="submit"
             className="hover:cursor-pointer xs:text-xs xs:h-8"
