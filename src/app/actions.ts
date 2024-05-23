@@ -6,5 +6,5 @@ export async function getCookie() {
   const cookieStore = cookies();
   const accessToken = cookieStore.get("accessToken");
   const response = await validateSession({ accessToken: accessToken?.value });
-  return { response, accessToken };
+  return response;
 }
