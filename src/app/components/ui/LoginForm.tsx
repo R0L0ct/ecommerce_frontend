@@ -7,6 +7,7 @@ import { login } from "@/api/data.api";
 import { useUserStore } from "@/store/user-store";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { getCookie } from "@/app/actions";
 
 type Input = {
   username: string;
@@ -33,6 +34,8 @@ export function LoginForm() {
       setIsLoading(false);
       setUserState(userdata.data.username);
       toast("Authentication Successfully!");
+      const datoss = await getCookie();
+      console.log(datoss);
       router.push("/");
     } catch (error) {
       console.log(error);

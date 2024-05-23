@@ -12,8 +12,7 @@ export const Layout = ({ children }: any) => {
       try {
         await refreshToken();
         const data = await getCookie();
-        userStore(data.username);
-        console.log(data);
+        userStore(data.response.username);
       } catch (err) {
         console.log("Something goes wrong");
       }
