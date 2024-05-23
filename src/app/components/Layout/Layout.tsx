@@ -10,7 +10,7 @@ export const Layout = ({ children }: any) => {
   useEffect(() => {
     const getRefresh = async () => {
       try {
-        refreshToken();
+        await refreshToken();
         const data = await getCookie();
         userStore(data.username);
         console.log(data);

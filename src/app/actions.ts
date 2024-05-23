@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 export async function getCookie() {
   const cookieStore = cookies();
   const accessToken = cookieStore.get("accessToken");
+  console.log(accessToken);
   const response = await validateSession({ accessToken: accessToken?.value });
   return response;
 }
