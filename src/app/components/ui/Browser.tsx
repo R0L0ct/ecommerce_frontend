@@ -76,10 +76,9 @@ export default function Browser() {
           setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, 0));
         } else if (event.key === "Enter") {
           if (selectedIndex >= 0 && selectedIndex < filteredProducts.length) {
-            // alert(`Seleccionaste: ${filteredProducts[selectedIndex].title}`);
             router.push(`/products/${filteredProducts[selectedIndex].id}`);
             setQuery("");
-            // setFilteredProducts([]);
+            setFilteredProducts([]);
           }
         }
       }
@@ -102,7 +101,8 @@ export default function Browser() {
   };
 
   const handleMouseClick = (index: number) => {
-    router.push(`/products/${filteredProducts[index].id}`);
+    const productId = filteredProducts[index].id;
+    router.push(`/products/${productId}`);
     setFilteredProducts([]);
   };
 
@@ -134,10 +134,9 @@ export default function Browser() {
         value={query}
         onChange={handleSearch}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
       />
       {query && filteredProducts.length > 0 && !isSmallScreen && isFocused ? (
-        <div className="absolute bg-white top-[38px] left-0 right-0 z-10 p-3 rounded-b outline outline-2 max-h-[669px] overflow-auto">
+        <div className="absolute bg-white top-[38px] left-0 right-0 z-50 p-3 rounded-b outline outline-2 max-h-[669px] overflow-auto">
           <ul>
             {filteredProducts.map((items, index) => (
               <li
