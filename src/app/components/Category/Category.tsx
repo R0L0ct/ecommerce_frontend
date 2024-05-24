@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Product } from "../Products/Product";
+import { PulseLoader } from "react-spinners";
 
 interface ProductsData {
   id: number;
@@ -45,7 +46,9 @@ export const Category = ({ category }: Props) => {
       {!isLoading ? (
         product.map((prod) => <Product key={prod.id} {...prod} />)
       ) : (
-        <h2>There are no products he he</h2>
+        <div className="col-span-full">
+          <PulseLoader color="#36d7b7" />
+        </div>
       )}
     </div>
   );

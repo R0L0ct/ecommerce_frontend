@@ -170,7 +170,11 @@ export default function Browser() {
                     cursor: "pointer",
                   }}
                   onMouseEnter={() => handleMouseEnter(index)}
-                  onClick={() => handleMouseClick(index)}
+                  onClick={() => {
+                    handleMouseClick(index);
+                    setIsFocused(false);
+                    setQuery("");
+                  }}
                 >
                   {items.title}
                 </li>

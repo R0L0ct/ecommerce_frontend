@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ProductOfertas } from "./ProductOfertas";
+import { PulseLoader } from "react-spinners";
 
 interface ProductsData {
   id: number;
@@ -47,7 +48,9 @@ export const ProductsOfertas = () => {
           />
         ))
       ) : (
-        <h2>No hay productos en oferta</h2>
+        <div className="col-span-full">
+          <PulseLoader color="#36d7b7" />
+        </div>
       )}
     </div>
   );
